@@ -16,12 +16,11 @@ const Footer = () => {
         </motion.div>
 
         {/* Links */}
-        <nav className="flex space-x-6 mt-4 md:mt-0">
+        <nav className="flex space-x-6 mt-4 md:mt-0 ml-32">
           {["Privacy Policy", "Terms of Service", "Support"].map((item, index) => (
             <a
               key={index}
-              href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
-              className="hover:text-white transition duration-300"
+              className="hover:text-white cursor-pointer transition duration-300"
             >
               {item}
             </a>

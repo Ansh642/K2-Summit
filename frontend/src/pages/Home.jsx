@@ -22,7 +22,12 @@ const Home = () => {
             Discover, manage, and unify your database schemas effortlessly with our AI-powered dbt explorer.
           </p>
           <button
-            onClick={() => navigate("/login")}
+            onClick={() => {
+              const email = localStorage.getItem("email");
+              if (!email) {
+                navigate("/login");
+              }
+            }}
             className="mt-8 px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-semibold text-lg rounded-full shadow-lg transition-transform transform hover:scale-105"
           >
             Get Started
@@ -107,7 +112,7 @@ const Home = () => {
           </div>
 
           <button
-            onClick={() => navigate("/explore")}
+            
             className="mt-10 px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-semibold text-lg rounded-full shadow-lg transition-transform transform hover:scale-105"
           >
             Explore Now
