@@ -10,6 +10,7 @@ import Feature from "./pages/Features";
 import ProtectedRoute from "./pages/Private"; // Import the ProtectedRoute
 import NoPageFound from "./pages/NoPageFound";
 import UnifiedSchema from "./pages/UnifiedSchema";
+import GenerateAIContent from "./pages/AI";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/features" element={<Feature />} />
         <Route path="*" element={<NoPageFound />} />
         <Route path="/unified-schema" element={<UnifiedSchema />} />
+        <Route path="/generate-ai-content" element={<GenerateAIContent/>} />
       </Routes>
       <Footer />
 

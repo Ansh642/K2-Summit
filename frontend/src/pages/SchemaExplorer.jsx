@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import toast from 'react-hot-toast';
 
 const SchemaExplorer = () => {
   const [schemas, setSchemas] = useState([]);
@@ -10,7 +11,7 @@ const SchemaExplorer = () => {
   const [tableData, setTableData] = useState([]);
   const [selectedSchema, setSelectedSchema] = useState(null);
   const [selectedTable, setSelectedTable] = useState(null);
-  const navigate  = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchSchemas = async () => {
@@ -62,6 +63,14 @@ const SchemaExplorer = () => {
     }
   }, [selectedTable, selectedSchema]);
 
+  const handleGenerateAIContent = () => {
+    if (!selectedSchema || !selectedTable) {
+      toast.error("Please select a schema and table first.");
+      return;
+    }
+    navigate(`/generate-ai-content?schema=${selectedSchema}&table=${selectedTable}`);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white p-8">
       {/* Schemas Section */}
@@ -75,32 +84,32 @@ const SchemaExplorer = () => {
           Schemas
         </h2>
         <ul className="space-y-4">
-        {schemas
-          .filter(
-            (schema) =>
-              schema.schema_name !== "pg_toast" && // Filter out "pg_toast"
-              schema.schema_name !== "unified_schema" // Filter out "unified_schema"
-          )
-          .map((schema) => (
-            <motion.li
-              key={schema.schema_name}
-              className={`p-3 cursor-pointer rounded-lg transition-all duration-300 ease-in-out ${
-                selectedSchema === schema.schema_name
-                  ? "bg-gradient-to-r from-cyan-600 to-blue-600 shadow-lg"
-                  : "hover:bg-gradient-to-r hover:from-cyan-700 hover:to-blue-700 hover:shadow-lg"
-              }`}
-              onClick={() => {
-                setSelectedSchema(schema.schema_name);
-                setSelectedTable(null);
-                setColumns([]);
-                setTableData([]);
-              }}
-              whileHover={{ scale: 1.02 }}
-            >
-              {schema.schema_name}
-            </motion.li>
-          ))}
-      </ul>
+          {schemas
+            .filter(
+              (schema) =>
+                schema.schema_name !== "pg_toast" && // Filter out "pg_toast"
+                schema.schema_name !== "unified_schema" // Filter out "unified_schema"
+            )
+            .map((schema) => (
+              <motion.li
+                key={schema.schema_name}
+                className={`p-3 cursor-pointer rounded-lg transition-all duration-300 ease-in-out ${
+                  selectedSchema === schema.schema_name
+                    ? "bg-gradient-to-r from-cyan-600 to-blue-600 shadow-lg"
+                    : "hover:bg-gradient-to-r hover:from-cyan-700 hover:to-blue-700 hover:shadow-lg"
+                }`}
+                onClick={() => {
+                  setSelectedSchema(schema.schema_name);
+                  setSelectedTable(null);
+                  setColumns([]);
+                  setTableData([]);
+                }}
+                whileHover={{ scale: 1.02 }}
+              >
+                {schema.schema_name}
+              </motion.li>
+            ))}
+        </ul>
       </motion.section>
 
       {/* Tables Section */}
@@ -180,15 +189,25 @@ const SchemaExplorer = () => {
         </motion.section>
       )}
 
-      {/* Create Unified Schema Button */}
-      <motion.button
-        onClick={()=>navigate('/unified-schema') }
-        className="w-full max-w-xs ml-[570px] px-6 py-2 bg-gradient-to-r from-red-500 to-pink-500 text-white font-semibold rounded-lg shadow-lg hover:from-red-600 hover:to-pink-600 transition-transform transform hover:scale-105"
-        whileHover={{ scale: 1.05 }}
-      >
-        Unify Schemas
-      </motion.button>
-          </div>
+      {/* Buttons Section */}
+      <div className="flex justify-center space-x-4">
+        <motion.button
+          onClick={() => navigate('/unified-schema')}
+          className="px-6 py-2 bg-gradient-to-r from-red-500 to-pink-500 text-white font-semibold rounded-lg shadow-lg hover:from-red-600 hover:to-pink-600 transition-transform transform hover:scale-105"
+          whileHover={{ scale: 1.05 }}
+        >
+          Unify Schemas
+        </motion.button>
+
+        <motion.button
+          onClick={handleGenerateAIContent}
+          className="px-6 py-2 bg-gradient-to-r from-green-500 to-teal-500 text-white font-semibold rounded-lg shadow-lg hover:from-green-600 hover:to-teal-600 transition-transform transform hover:scale-105"
+          whileHover={{ scale: 1.05 }}
+        >
+          Generate AI Content
+        </motion.button>
+      </div>
+    </div>
   );
 };
 

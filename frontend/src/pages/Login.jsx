@@ -20,7 +20,7 @@ const Login = () => {
       toast.success("Login successful!");
       navigate("/");
       localStorage.setItem("email", email);
-    localStorage.setItem("password", password);
+      localStorage.setItem("password", password);
 
     } else {
       // Unsuccessful login
@@ -118,23 +118,6 @@ const Login = () => {
           </motion.button>
         </form>
 
-        {/* Sign Up Link */}
-        <motion.div
-          className="text-center mt-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.2 }}
-        >
-          <p className="text-gray-300">
-            Don't have an account?{" "}
-            <a
-              href="#signup"
-              className="text-cyan-400 hover:text-cyan-300 transition duration-300"
-            >
-              Sign Up
-            </a>
-          </p>
-        </motion.div>
       </motion.div>
     </div>
   );
