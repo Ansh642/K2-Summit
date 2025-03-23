@@ -72,6 +72,8 @@ exports.createUnifiedSchema = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+
 // Fetch the unified schema
 exports.getUnifiedSchema = async (req, res) => {
   try {
@@ -121,6 +123,7 @@ exports.getSchemas = async (req, res) => {
   }
 };
 
+
 exports.getTables = async (req, res) => {
   try {
     const { schema } = req.params;
@@ -161,6 +164,8 @@ exports.getTables = async (req, res) => {
   }
 };
 
+
+
 exports.getColumns = async (req, res) => {
   try {
     const { schema, table } = req.params;
@@ -177,6 +182,8 @@ exports.getColumns = async (req, res) => {
   }
 };
 
+
+
 exports.getTableData = async (req, res) => {
   try {
     const { schema, table } = req.params;
@@ -188,4 +195,5 @@ exports.getTableData = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
 

@@ -75,28 +75,32 @@ const SchemaExplorer = () => {
           Schemas
         </h2>
         <ul className="space-y-4">
-          {schemas
-            .filter((schema) => schema.schema_name !== "pg_toast") // Filter out "pg_toast"
-            .map((schema) => (
-              <motion.li
-                key={schema.schema_name}
-                className={`p-3 cursor-pointer rounded-lg transition-all duration-300 ease-in-out ${
-                  selectedSchema === schema.schema_name
-                    ? "bg-gradient-to-r from-cyan-600 to-blue-600 shadow-lg"
-                    : "hover:bg-gradient-to-r hover:from-cyan-700 hover:to-blue-700 hover:shadow-lg"
-                }`}
-                onClick={() => {
-                  setSelectedSchema(schema.schema_name);
-                  setSelectedTable(null);
-                  setColumns([]);
-                  setTableData([]);
-                }}
-                whileHover={{ scale: 1.02 }}
-              >
-                {schema.schema_name}
-              </motion.li>
-            ))}
-        </ul>
+        {schemas
+          .filter(
+            (schema) =>
+              schema.schema_name !== "pg_toast" && // Filter out "pg_toast"
+              schema.schema_name !== "unified_schema" // Filter out "unified_schema"
+          )
+          .map((schema) => (
+            <motion.li
+              key={schema.schema_name}
+              className={`p-3 cursor-pointer rounded-lg transition-all duration-300 ease-in-out ${
+                selectedSchema === schema.schema_name
+                  ? "bg-gradient-to-r from-cyan-600 to-blue-600 shadow-lg"
+                  : "hover:bg-gradient-to-r hover:from-cyan-700 hover:to-blue-700 hover:shadow-lg"
+              }`}
+              onClick={() => {
+                setSelectedSchema(schema.schema_name);
+                setSelectedTable(null);
+                setColumns([]);
+                setTableData([]);
+              }}
+              whileHover={{ scale: 1.02 }}
+            >
+              {schema.schema_name}
+            </motion.li>
+          ))}
+      </ul>
       </motion.section>
 
       {/* Tables Section */}
