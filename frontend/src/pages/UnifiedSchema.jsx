@@ -1,12 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import * as d3 from "d3";
+import { Card, Table, Tag, Space } from 'antd';
+import { DatabaseOutlined } from '@ant-design/icons';
+import './UnifiedSchema.css'; // For custom table styles
 
 const UnifiedSchema = () => {
   const [unifiedSchema, setUnifiedSchema] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTable, setSelectedTable] = useState(null);
   const [tableData, setTableData] = useState([]);
+  const [isPanelVisible, setIsPanelVisible] = useState(false);
   const graphRef = useRef();
 
   // Fetch unified schema data from the backend
@@ -33,6 +37,7 @@ const UnifiedSchema = () => {
           `http://localhost:5000/api/schemas/${selectedTable.schema}/tables/${selectedTable.label}/data`
         );
         setTableData(response.data);
+        setIsPanelVisible(true);
       } catch (error) {
         console.error("Error fetching table data:", error);
       }
@@ -45,8 +50,8 @@ const UnifiedSchema = () => {
   useEffect(() => {
     if (!unifiedSchema) return;
 
-    const width = 1000; // Increased width for better visibility
-    const height = 500; // Reduced height to fit better on the screen
+    const width = 1000;
+    const height = 500;
 
     const svg = d3.select(graphRef.current)
       .attr("width", width)
@@ -106,11 +111,11 @@ const UnifiedSchema = () => {
 
     // Draw nodes and edges
     const simulation = d3.forceSimulation(nodes)
-      .force("link", d3.forceLink(edges).id(d => d.id).distance(400)) // Increased distance between nodes
-      .force("charge", d3.forceManyBody().strength(-1300)) // Increased repulsion strength
+      .force("link", d3.forceLink(edges).id(d => d.id).distance(400))
+      .force("charge", d3.forceManyBody().strength(-1300))
       .force("center", d3.forceCenter(width / 2, height / 2))
-      .force("x", d3.forceX().strength(0.2)) // Add force to spread nodes horizontally
-      .force("y", d3.forceY().strength(0.2)); // Add force to spread nodes vertically
+      .force("x", d3.forceX().strength(0.2))
+      .force("y", d3.forceY().strength(0.2));
 
     const link = svg.append("g")
       .selectAll("line")
@@ -131,11 +136,11 @@ const UnifiedSchema = () => {
 
     // Draw table boxes
     node.append("rect")
-      .attr("width", 220) // Increased width for better visibility
-      .attr("height", d => 40 + d.columns.length * 20) // Increased height for better visibility
-      .attr("fill", d => d.isHighlighted ? "#FFD700" : "#69b3a2") // Highlight searched nodes
+      .attr("width", 220)
+      .attr("height", d => 40 + d.columns.length * 20)
+      .attr("fill", d => d.isHighlighted ? "#FFD700" : "#69b3a2")
       .attr("stroke", "#333")
-      .attr("rx", 5) // Rounded corners
+      .attr("rx", 5)
       .attr("ry", 5);
 
     // Draw table names
@@ -143,7 +148,7 @@ const UnifiedSchema = () => {
       .text(d => d.label)
       .attr("x", 10)
       .attr("y", 25)
-      .attr("font-size", 16) // Increased font size
+      .attr("font-size", 16)
       .attr("fill", "#fff")
       .attr("font-weight", "bold");
 
@@ -154,8 +159,8 @@ const UnifiedSchema = () => {
       .append("text")
       .text(col => `${col.name} (${col.type}) ${col.isPrimaryKey ? "PK" : ""}`)
       .attr("x", 10)
-      .attr("y", (col, i) => 50 + i * 20) // Adjusted vertical spacing
-      .attr("font-size", 14) // Increased font size
+      .attr("y", (col, i) => 50 + i * 20)
+      .attr("font-size", 14)
       .attr("fill", "#333");
 
     // Add arrow markers for edges
@@ -184,14 +189,27 @@ const UnifiedSchema = () => {
     });
   }, [unifiedSchema, searchQuery]);
 
+  // Prepare columns for AntD table
+  const tableColumns = selectedTable?.columns.map(col => ({
+    title: (
+      <Space>
+        <span>{col.name}</span>
+        {col.isPrimaryKey && <Tag color="green">PK</Tag>}
+      </Space>
+    ),
+    dataIndex: col.name,
+    key: col.name,
+    render: (text) => <span className="text-gray-300">{text || 'NULL'}</span>
+  }));
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white p-4"> {/* Reduced padding from p-8 to p-4 */}
-      <h1 className="text-4xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-300"> {/* Reduced margin-bottom from mb-8 to mb-4 */}
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white p-4">
+      <h1 className="text-4xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-300">
         Unified Schema
       </h1>
 
       {/* Search Bar */}
-      <div className="mb-4"> {/* Reduced margin-bottom from mb-8 to mb-4 */}
+      <div className="mb-4">
         <input
           type="text"
           placeholder="Search tables or columns..."
@@ -203,66 +221,53 @@ const UnifiedSchema = () => {
 
       {/* Graph */}
       {unifiedSchema ? (
-        <svg ref={graphRef} className="mt-4"></svg> 
+        <svg ref={graphRef} className="mt-4 cursor-pointer"></svg> 
       ) : (
         <p className="text-gray-400">Loading unified schema...</p>
       )}
 
-      {/* Table Details Panel */}
+      {/* Table Details Panel Below Graph */}
       {selectedTable && (
-        <div className="fixed top-0 right-0 mt-10 w-1/3 h-[90%] bg-gray-800 p-6 overflow-y-auto shadow-lg">
-          <h2 className="text-2xl font-bold text-cyan-400 mb-4">{selectedTable.label}</h2>
-          <h3 className="text-lg font-semibold text-gray-300 mb-2">Schema: {selectedTable.schema}</h3>
+        <div className="mt-8 bg-gray-800 p-6 rounded-lg shadow-lg">
+          <div className="flex items-center mb-6">
+            <DatabaseOutlined className="mr-2 text-xl" style={{ color: '#6366F1' }} />
+            <h2 className="text-2xl font-bold">
+              <span style={{ color: '#6366F1' }}>{selectedTable.schema}</span>
+              <span className="mx-2">/</span>
+              <span>{selectedTable.label}</span>
+            </h2>
+          </div>
 
-          {/* Table Columns */}
-          <div className="mb-6">
-            <h4 className="text-lg font-semibold text-gray-300 mb-2">Columns</h4>
-            <div className="space-y-2">
-              {selectedTable.columns.map((col) => (
-                <div key={col.name} className="text-sm text-gray-300">
-                  <span className="font-medium">{col.name}</span> ({col.type}){" "}
-                  {col.isPrimaryKey && <span className="text-green-400">PK</span>}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            {selectedTable.columns.map((col) => (
+              <Card 
+                key={col.name}
+                className="bg-gray-700 border-gray-600"
+                bodyStyle={{ padding: '12px' }}
+              >
+                <div className="flex justify-between items-start">
+                  <div>
+                    <p className="font-medium text-gray-100">{col.name}</p>
+                    <p className="text-sm text-gray-400">{col.type}</p>
+                  </div>
+                  {col.isPrimaryKey && (
+                    <Tag color="green">PK</Tag>
+                  )}
                 </div>
-              ))}
-            </div>
+              </Card>
+            ))}
           </div>
 
-          {/* Table Data */}
-          <div className="mb-6">
-            <h4 className="text-lg font-semibold text-gray-300 mb-2">Table Data</h4>
-            <div className="overflow-auto max-h-96">
-              <table className="w-full border-collapse border border-gray-700">
-                <thead>
-                  <tr className="bg-gray-700 text-gray-300">
-                    {selectedTable.columns.map((col) => (
-                      <th key={col.name} className="border border-gray-700 p-2 text-left">
-                        {col.name}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {tableData.map((row, rowIndex) => (
-                    <tr key={rowIndex} className="hover:bg-gray-700 transition-colors">
-                      {selectedTable.columns.map((col) => (
-                        <td key={col.name} className="border border-gray-700 p-2">
-                          {row[col.name]}
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+          <div className="max-h-96 overflow-auto">
+            <Table
+              columns={tableColumns}
+              dataSource={tableData}
+              pagination={false}
+              scroll={{ x: true }}
+              rowClassName={() => 'hover:bg-gray-700'}
+              bordered
+            />
           </div>
-
-          {/* Close Button */}
-          <button
-            onClick={() => setSelectedTable(null)}
-            className="w-full px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
-          >
-            Close
-          </button>
         </div>
       )}
     </div>

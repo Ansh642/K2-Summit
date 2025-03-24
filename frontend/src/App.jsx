@@ -26,10 +26,19 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        <Route
+          path="/unified-schema"
+          element={
+            <ProtectedRoute>
+              <UnifiedSchema />
+            </ProtectedRoute>
+          }
+        />
+
         <Route path="/login" element={<Login />} />
         <Route path="/features" element={<Feature />} />
         <Route path="*" element={<NoPageFound />} />
-        <Route path="/unified-schema" element={<UnifiedSchema />} />
         <Route path="/generate-ai-content" element={<GenerateAIContent/>} />
       </Routes>
       <Footer />

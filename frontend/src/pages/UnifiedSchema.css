@@ -1,0 +1,15 @@
+.ant-table-thead > tr > th {
+    background-color: #334155 !important;
+    color: #F8FAFC !important;
+    border-bottom: 1px solid #475569 !important;
+  }
+  
+  .ant-table-tbody > tr > td {
+    background-color: #1E293B !important;
+    color: #F8FAFC !important;
+    border-bottom: 1px solid #475569 !important;
+  }
+  
+  .ant-table-tbody > tr:hover > td {
+    background-color: #334155 !important;
+  }

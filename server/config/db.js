@@ -10,8 +10,8 @@ const pool = new Pool({
   ssl: {
     rejectUnauthorized: false // Required for Neon's SSL
   },
-  connectionTimeoutMillis: 5000, // Optional: Set timeout
-  idleTimeoutMillis: 30000 // Optional: Set idle timeout
+  connectionTimeoutMillis: 90000, // Optional: Set timeout
+  idleTimeoutMillis: 90000 // Optional: Set idle timeout
 });
 
 pool.connect()
