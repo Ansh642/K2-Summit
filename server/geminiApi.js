@@ -24,7 +24,7 @@ const {
   async function run(prompt) {
     const chatSession = model.startChat({
       generationConfig,
-      hhistory: [
+      history: [
         {
           role: "user",
           parts: [
@@ -47,6 +47,30 @@ const {
           role: "model",
           parts: [
             {text: "[\n  {\n    \"table\": \"customer\",\n    \"columns\": {\n      \"customer_id\": \"Unique identifier of customer\",\n      \"first_name\": \"Customer's given first name\",\n      \"last_name\": \"Customer's family last name\",\n      \"email\": \"Customer's contact email address\",\n      \"created_at\": \"Date and time account created\"\n    }\n  },\n  {\n    \"table\": \"order\",\n    \"columns\": {\n      \"order_id\": \"Distinct identifier for order\",\n      \"customer_id\": \"Customer placing this specific order\",\n      \"first_name\": \"First name of ordering customer\",\n      \"last_name\": \"Last name of ordering customer\",\n      \"order_date\": \"Date on which the order placed\",\n      \"total_amount\": \"Total monetary value for order\"\n    }\n  },\n  {\n    \"table\": \"revenue\",\n    \"columns\": {\n      \"revenue_id\": \"Specific revenue record identifier\",\n      \"order_id\": \"Order linked to the revenue\",\n      \"customer_id\": \"Customer corresponding this revenue\",\n      \"total_amount\": \"Gross amount before deductions\",\n      \"revenue_amount\": \"Actual amount after calculations\",\n      \"recorded_at\": \"Timestamp for recorded revenue\"\n    }\n  }\n]"},
+          ],
+        },
+        {
+          role: "user",
+          parts: [
+            {text: "i have 3 schemas named revenue orders and customers and they are also interlinked with each other like customers linked with orders and orders linked with revenue so when i select any schema among the three please give one or line among them please"},
+          ],
+        },
+        {
+          role: "model",
+          parts: [
+            {text: "[\n  {\n    \"schema\": \"customer\",\n    \"description\": \"Customers are linked to orders they have placed.\"\n  },\n  {\n    \"schema\": \"order\",\n    \"description\": \"Orders connect customers to the revenue generated.\"\n  },\n  {\n    \"schema\": \"revenue\",\n    \"description\": \"Revenue records the monetary value derived from customer orders.\"\n  }\n]"},
+          ],
+        },
+        {
+          role: "user",
+          parts: [
+            {text: "apart from description also writes its purpose too i mean give both description and purpose for schema"},
+          ],
+        },
+        {
+          role: "model",
+          parts: [
+            {text: "[\n  {\n    \"schema\": \"customer\",\n    \"description\": \"Represents individuals who make purchases.\",\n    \"purpose\": \"Stores customer details and enables tracking of order history.\"\n  },\n  {\n    \"schema\": \"order\",\n    \"description\": \"Records details of customer purchases.\",\n    \"purpose\": \"Tracks placed orders, linking them to specific customers and revenue.\"\n  },\n  {\n    \"schema\": \"revenue\",\n    \"description\": \"Represents the financial income generated from orders.\",\n    \"purpose\": \"Tracks revenue amounts tied to specific orders and customers.\"\n  }\n]"},
           ],
         },
       ],

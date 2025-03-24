@@ -45,8 +45,8 @@ const UnifiedSchema = () => {
   useEffect(() => {
     if (!unifiedSchema) return;
 
-    const width = 1400; // Increased width for better visibility
-    const height = 1000; // Increased height for better visibility
+    const width = 1000; // Increased width for better visibility
+    const height = 500; // Reduced height to fit better on the screen
 
     const svg = d3.select(graphRef.current)
       .attr("width", width)
@@ -106,8 +106,8 @@ const UnifiedSchema = () => {
 
     // Draw nodes and edges
     const simulation = d3.forceSimulation(nodes)
-      .force("link", d3.forceLink(edges).id(d => d.id).distance(300)) // Increased distance between nodes
-      .force("charge", d3.forceManyBody().strength(-800)) // Increased repulsion strength
+      .force("link", d3.forceLink(edges).id(d => d.id).distance(400)) // Increased distance between nodes
+      .force("charge", d3.forceManyBody().strength(-1300)) // Increased repulsion strength
       .force("center", d3.forceCenter(width / 2, height / 2))
       .force("x", d3.forceX().strength(0.2)) // Add force to spread nodes horizontally
       .force("y", d3.forceY().strength(0.2)); // Add force to spread nodes vertically
@@ -185,14 +185,13 @@ const UnifiedSchema = () => {
   }, [unifiedSchema, searchQuery]);
 
   return (
-
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white p-8">
-      <h1 className="text-4xl font-extrabold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-300">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white p-4"> {/* Reduced padding from p-8 to p-4 */}
+      <h1 className="text-4xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-300"> {/* Reduced margin-bottom from mb-8 to mb-4 */}
         Unified Schema
       </h1>
 
       {/* Search Bar */}
-      <div className="mb-8">
+      <div className="mb-4"> {/* Reduced margin-bottom from mb-8 to mb-4 */}
         <input
           type="text"
           placeholder="Search tables or columns..."
@@ -204,14 +203,14 @@ const UnifiedSchema = () => {
 
       {/* Graph */}
       {unifiedSchema ? (
-        <svg ref={graphRef}></svg>
+        <svg ref={graphRef} className="mt-4"></svg> 
       ) : (
         <p className="text-gray-400">Loading unified schema...</p>
       )}
 
       {/* Table Details Panel */}
       {selectedTable && (
-        <div className="fixed top-0 right-0 w-1/3 h-full bg-gray-800 p-6 overflow-y-auto shadow-lg">
+        <div className="fixed top-0 right-0 mt-10 w-1/3 h-[90%] bg-gray-800 p-6 overflow-y-auto shadow-lg">
           <h2 className="text-2xl font-bold text-cyan-400 mb-4">{selectedTable.label}</h2>
           <h3 className="text-lg font-semibold text-gray-300 mb-2">Schema: {selectedTable.schema}</h3>
 
@@ -267,7 +266,6 @@ const UnifiedSchema = () => {
         </div>
       )}
     </div>
-    
   );
 };
 

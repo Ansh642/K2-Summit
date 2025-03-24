@@ -66,11 +66,11 @@ const SchemaExplorer = () => {
   }, [selectedTable, selectedSchema]);
 
   const handleGenerateAIContent = () => {
-    if (!selectedSchema || !selectedTable) {
-      toast.error("Please select a schema and table first.");
+    if (!selectedSchema) {
+      toast.error("Please select a schema first.");
       return;
     }
-    navigate(`/generate-ai-content?schema=${selectedSchema}&table=${selectedTable}`);
+    navigate(`/generate-ai-content?schema=${selectedSchema}${selectedTable ? `&table=${selectedTable}` : ""}`);
   };
 
   const handleExportMetadata = async () => {
