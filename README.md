@@ -1,97 +1,103 @@
-Metaflow
+Here's your updated README.md with the dashboard information added:
+
+# Metaflow
+
 Metaflow is a comprehensive schema visualization and management tool designed to help developers and database administrators understand, explore, and manage database schemas with ease. The project provides a unified view of multiple database schemas, allowing users to visualize relationships between tables, explore table metadata, and generate AI-powered descriptions for schema elements.
 
-Features
-Unified Schema Visualization
+## Features
 
-Table Exploration
+1. **Unified Schema Visualization**
+2. **Table Exploration**
+3. **AI-Powered Descriptions**
+4. **Search and Filter**
+5. **Export Metadata**
+6. **Responsive Modern UI**
 
-AI-Powered Descriptions
+---
 
-Search and Filter
+## Technologies Used
 
-Export Metadata
+- **Frontend**: React.js, Tailwind CSS, D3.js, Axios
+- **Backend**: Node.js, Express.js
+- **Database**: PostgreSQL (Hosted on Neon)
+- **AI**: Gemini API
 
-Responsive Modern UI
-
-Technologies Used
-Frontend: React.js, Tailwind CSS, D3.js, Axios
-
-Backend: Node.js, Express.js
-
-Database: PostgreSQL (Hosted on Neon)
-
-AI: Gemini API
-
-Demo Credentials
-Copy
+### Demo Credentials
+```
 Email: ansh@gmail.com
 Password: 123456
-Getting Started
-Accessing Your Data
-Login using the demo credentials above
+```
 
-Navigate to the Dashboard from the main menu
+---
 
-Explore your dbt (data build tool) schemas and tables:
+## Getting Started
 
-View table relationships
+### Accessing Your Data
+1. Login using the demo credentials above
+2. Navigate to the **Dashboard** from the main menu
+3. Explore your dbt (data build tool) schemas and tables:
+   - View table relationships
+   - Examine column metadata
+   - Generate AI descriptions for schema elements
 
-Examine column metadata
+### Local Development
 
-Generate AI descriptions for schema elements
+#### Prerequisites
+- Node.js (v16+)
+- npm (v8+)
+- PostgreSQL (or use Neon for cloud database)
 
-Local Development
-Prerequisites
-Node.js (v16+)
+#### Installation
 
-npm (v8+)
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/Ansh642/K2-Summit.git
+   cd metaflow
+   ```
 
-PostgreSQL (or use Neon for cloud database)
+2. **Set Up Backend**:
+   ```bash
+   cd server
+   npm install
+   npm run start
+   ```
 
-Installation
-Clone the Repository:
+3. **Set Up Frontend**:
+   ```bash
+   cd ../frontend
+   npm install
+   npm run dev
+   ```
 
-bash
-Copy
-git clone https://github.com/Ansh642/K2-Summit.git
-cd metaflow
-Set Up Backend:
+4. **Access the Application**:
+   Open `http://localhost:5173` in your browser
 
-bash
-Copy
-cd server
-npm install
-npm run start
-Set Up Frontend:
+---
 
-bash
-Copy
-cd ../frontend
-npm install
-npm run dev
-Access the Application:
-Open http://localhost:5173 in your browser
+## Project Structure
 
-Project Structure
-Copy
+```
 metaflow/
 ├── frontend/       # React application
 ├── server/         # Node.js backend
 └── README.md
-Future Enhancements
-Add support for MySQL/MongoDB
+```
 
-Implement user authentication
+## Future Enhancements
 
-Enhanced AI documentation features
+- [ ] Add support for MySQL/MongoDB
+- [ ] Implement user authentication
+- [ ] Enhanced AI documentation features
+- [ ] dbt-specific visualization improvements
 
-dbt-specific visualization improvements
+---
 
-Contact
+## Contact
+
 For questions or support:
+- **Ansh Agarwal**  
+  📧 anshagarwal642@gmail.com
 
-Ansh Agarwal
-📧 anshagarwal642@gmail.com
+---
 
-🚀 Happy database exploring! After login, visit the Dashboard to explore your dbt schemas and visualize your data transformations.
+🚀 **Happy database exploring!** After login, visit the Dashboard to explore your dbt schemas and visualize your data transformations.
