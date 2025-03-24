@@ -73,6 +73,18 @@ const {
             {text: "[\n  {\n    \"schema\": \"customer\",\n    \"description\": \"Represents individuals who make purchases.\",\n    \"purpose\": \"Stores customer details and enables tracking of order history.\"\n  },\n  {\n    \"schema\": \"order\",\n    \"description\": \"Records details of customer purchases.\",\n    \"purpose\": \"Tracks placed orders, linking them to specific customers and revenue.\"\n  },\n  {\n    \"schema\": \"revenue\",\n    \"description\": \"Represents the financial income generated from orders.\",\n    \"purpose\": \"Tracks revenue amounts tied to specific orders and customers.\"\n  }\n]"},
           ],
         },
+        {
+          role: "user",
+          parts: [
+            {text: "and also do not give same results again and again give new description and purpose every time "},
+          ],
+        },
+        {
+          role: "model",
+          parts: [
+            {text: "[\n  {\n    \"schema\": \"customer\",\n    \"description\": \"Contains individual purchaser information.\",\n    \"purpose\": \"To identify and manage customer relationships, enabling personalized experiences.\"\n  },\n  {\n    \"schema\": \"order\",\n    \"description\": \"Details about products purchased and fulfillment status.\",\n    \"purpose\": \"Facilitates order tracking, management, and connecting sales to specific customers.\"\n  },\n  {\n    \"schema\": \"revenue\",\n    \"description\": \"Records financial transactions linked to specific sales.\",\n    \"purpose\": \"Enables financial reporting, analysis of sales performance, and accurate profit calculations.\"\n  }\n]"},
+          ],
+        },
       ],
     });
   

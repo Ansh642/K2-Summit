@@ -78,7 +78,7 @@ const GenerateAIContent = () => {
     try {
       setLoading(true);
 
-      const prompt = `Generate a 3-4 word short description for the schema "${schema}".`;
+      const prompt = `Generate a 5-6 word short description for the schema "${schema}".`;
 
       const response = await axios.post("http://localhost:5000/api/ask-ai", {
         prompt: prompt,

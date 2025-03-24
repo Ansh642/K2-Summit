@@ -99,7 +99,6 @@ const Login = () => {
             transition={{ duration: 0.6, delay: 0.8 }}
           >
             <a
-              href="#forgot-password"
               className="text-sm text-cyan-400 hover:text-cyan-300 transition duration-300"
             >
               Forgot Password?
