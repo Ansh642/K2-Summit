@@ -17,35 +17,31 @@ Metaflow is a comprehensive schema visualization and management tool designed to
 
 ## Technologies Used
 
-- **Frontend**: React.js, Tailwind CSS, D3.js, Axios
-- **Backend**: Node.js, Express.js
-- **Database**: PostgreSQL (Hosted on Neon)
-- **AI**: Gemini API
+- **Frontend**:
+  - React.js
+  - Tailwind CSS
+  - D3.js (for graph visualization)
+  - Axios (for API requests)
 
-### Demo Credentials
-```
-Email: ansh@gmail.com
-Password: 123456
-```
+- **Backend**:
+  - Node.js
+  - Express.js
+  - PostgreSQL (for database interaction)
+
+- **AI Integration**:
+  - Gemini API (for generating AI-powered descriptions)
 
 ---
 
 ## Getting Started
 
-### Accessing Your Data
-1. Login using the demo credentials above
-2. Navigate to the **Dashboard** from the main menu
-3. Explore your dbt (data build tool) schemas and tables:
-   - View table relationships
-   - Examine column metadata
-   - Generate AI descriptions for schema elements
+Follow these steps to set up and run Metaflow on your local machine.
 
-### Local Development
+### Prerequisites
 
-#### Prerequisites
-- Node.js (v16+)
-- npm (v8+)
-- PostgreSQL (or use Neon for cloud database)
+- Node.js (v16 or higher)
+- npm (v8 or higher)
+- PostgreSQL (for database setup)
 
 #### Installation
 
@@ -78,26 +74,68 @@ Password: 123456
 
 ```
 metaflow/
-├── frontend/       # React application
-├── server/         # Node.js backend
-└── README.md
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── components/       # React components
+│   │   ├── pages/            # Application pages
+│   │   ├── App.jsx           # Main application component
+│   │   └── index.js          # Entry point
+│   ├── tailwind.config.js    # Tailwind CSS configuration
+│   └── package.json          # Frontend dependencies
+├── server/
+│   ├── config/               # Configuration files
+│   ├── controllers/          # API controllers
+│   ├── routes/               # API routes
+│   ├── models/               # Database models
+│   ├── app.js                # Express application
+│   └── package.json          # Backend dependencies
+└── README.md                 # Project documentation
 ```
 
-## Future Enhancements
+---
 
-- [ ] Add support for MySQL/MongoDB
-- [ ] Implement user authentication
-- [ ] Enhanced AI documentation features
-- [ ] dbt-specific visualization improvements
+## Contributing
+
+We welcome contributions to Metaflow! If you'd like to contribute, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bugfix.
+3. Commit your changes with clear and descriptive messages.
+4. Submit a pull request.
+
+---
+
+## License
+
+Metaflow is open-source software licensed under the [MIT License](LICENSE).
+
+---
+
+## Acknowledgments
+
+- **D3.js** for providing powerful graph visualization capabilities.
+- **Tailwind CSS** for making it easy to build a responsive and modern UI.
+- **Gemini API** for enabling AI-powered descriptions.
 
 ---
 
 ## Contact
 
-For questions or support:
-- **Ansh Agarwal**  
-  📧 anshagarwal642@gmail.com
+For questions, feedback, or support, please reach out to:
+
+- **Your Name**  
+  Email: anshagarwal642@gmail.com
+---
+
+
+
+## Future Enhancements
+
+- Add support for more database types (e.g., MySQL, MongoDB).
+- Implement user authentication and role-based access control.
+- Enhance AI capabilities for generating more detailed schema documentation.
 
 ---
 
-🚀 **Happy database exploring!** After login, visit the Dashboard to explore your dbt schemas and visualize your data transformations.
+Thank you for using Metaflow! We hope it simplifies your database schema management and exploration. 🚀
