@@ -1,141 +1,97 @@
-Here's your updated README.md with the dashboard information added:
-
-# Metaflow
-
+Metaflow
 Metaflow is a comprehensive schema visualization and management tool designed to help developers and database administrators understand, explore, and manage database schemas with ease. The project provides a unified view of multiple database schemas, allowing users to visualize relationships between tables, explore table metadata, and generate AI-powered descriptions for schema elements.
 
-## Features
+Features
+Unified Schema Visualization
 
-1. **Unified Schema Visualization**
-2. **Table Exploration**
-3. **AI-Powered Descriptions**
-4. **Search and Filter**
-5. **Export Metadata**
-6. **Responsive Modern UI**
+Table Exploration
 
----
+AI-Powered Descriptions
 
-## Technologies Used
+Search and Filter
 
-- **Frontend**:
-  - React.js
-  - Tailwind CSS
-  - D3.js (for graph visualization)
-  - Axios (for API requests)
+Export Metadata
 
-- **Backend**:
-  - Node.js
-  - Express.js
-  - PostgreSQL (for database interaction)
+Responsive Modern UI
 
-- **AI Integration**:
-  - Gemini API (for generating AI-powered descriptions)
+Technologies Used
+Frontend: React.js, Tailwind CSS, D3.js, Axios
 
----
+Backend: Node.js, Express.js
 
-## Getting Started
+Database: PostgreSQL (Hosted on Neon)
 
-Follow these steps to set up and run Metaflow on your local machine.
+AI: Gemini API
 
-### Prerequisites
+Demo Credentials
+Copy
+Email: ansh@gmail.com
+Password: 123456
+Getting Started
+Accessing Your Data
+Login using the demo credentials above
 
-- Node.js (v16 or higher)
-- npm (v8 or higher)
-- PostgreSQL (for database setup)
+Navigate to the Dashboard from the main menu
 
-#### Installation
+Explore your dbt (data build tool) schemas and tables:
 
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/Ansh642/K2-Summit.git
-   cd metaflow
-   ```
+View table relationships
 
-2. **Set Up Backend**:
-   ```bash
-   cd server
-   npm install
-   npm run start
-   ```
+Examine column metadata
 
-3. **Set Up Frontend**:
-   ```bash
-   cd ../frontend
-   npm install
-   npm run dev
-   ```
+Generate AI descriptions for schema elements
 
-4. **Access the Application**:
-   Open `http://localhost:5173` in your browser
+Local Development
+Prerequisites
+Node.js (v16+)
 
----
+npm (v8+)
 
-## Project Structure
+PostgreSQL (or use Neon for cloud database)
 
-```
+Installation
+Clone the Repository:
+
+bash
+Copy
+git clone https://github.com/Ansh642/K2-Summit.git
+cd metaflow
+Set Up Backend:
+
+bash
+Copy
+cd server
+npm install
+npm run start
+Set Up Frontend:
+
+bash
+Copy
+cd ../frontend
+npm install
+npm run dev
+Access the Application:
+Open http://localhost:5173 in your browser
+
+Project Structure
+Copy
 metaflow/
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/       # React components
-│   │   ├── pages/            # Application pages
-│   │   ├── App.jsx           # Main application component
-│   │   └── index.js          # Entry point
-│   ├── tailwind.config.js    # Tailwind CSS configuration
-│   └── package.json          # Frontend dependencies
-├── server/
-│   ├── config/               # Configuration files
-│   ├── controllers/          # API controllers
-│   ├── routes/               # API routes
-│   ├── models/               # Database models
-│   ├── app.js                # Express application
-│   └── package.json          # Backend dependencies
-└── README.md                 # Project documentation
-```
+├── frontend/       # React application
+├── server/         # Node.js backend
+└── README.md
+Future Enhancements
+Add support for MySQL/MongoDB
 
----
+Implement user authentication
 
-## Contributing
+Enhanced AI documentation features
 
-We welcome contributions to Metaflow! If you'd like to contribute, please follow these steps:
+dbt-specific visualization improvements
 
-1. Fork the repository.
-2. Create a new branch for your feature or bugfix.
-3. Commit your changes with clear and descriptive messages.
-4. Submit a pull request.
+Contact
+For questions or support:
 
----
+Ansh Agarwal
+📧 anshagarwal642@gmail.com
 
-## License
-
-Metaflow is open-source software licensed under the [MIT License](LICENSE).
-
----
-
-## Acknowledgments
-
-- **D3.js** for providing powerful graph visualization capabilities.
-- **Tailwind CSS** for making it easy to build a responsive and modern UI.
-- **Gemini API** for enabling AI-powered descriptions.
-
----
-
-## Contact
-
-For questions, feedback, or support, please reach out to:
-
-- **Your Name**  
-  Email: anshagarwal642@gmail.com
----
-
-
-
-## Future Enhancements
-
-- Add support for more database types (e.g., MySQL, MongoDB).
-- Implement user authentication and role-based access control.
-- Enhance AI capabilities for generating more detailed schema documentation.
-
----
-
-Thank you for using Metaflow! We hope it simplifies your database schema management and exploration. 🚀
+🚀 Happy database exploring! After login, visit the Dashboard to explore your dbt schemas and visualize your data transformations.
