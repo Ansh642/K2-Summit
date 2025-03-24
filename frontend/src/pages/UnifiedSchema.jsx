@@ -185,6 +185,7 @@ const UnifiedSchema = () => {
   }, [unifiedSchema, searchQuery]);
 
   return (
+
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white p-8">
       <h1 className="text-4xl font-extrabold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-300">
         Unified Schema
@@ -266,6 +267,7 @@ const UnifiedSchema = () => {
         </div>
       )}
     </div>
+    
   );
 };
 

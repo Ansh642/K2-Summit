@@ -107,6 +107,48 @@ exports.getUnifiedSchema = async (req, res) => {
   }
 };
 
+exports.getTableMetadata = async (req, res) => {
+  const { schema, table } = req.params;
+
+  try {
+    // Fetch table metadata
+    const columnsQuery = `
+      SELECT column_name, data_type 
+      FROM information_schema.columns 
+      WHERE table_schema = $1 AND table_name = $2;
+    `;
+    const columnsResult = await pool.query(columnsQuery, [schema, table]);
+
+    // Fetch foreign keys
+    const fkQuery = `
+      SELECT 
+        kcu.column_name AS fk_column,
+        ccu.table_schema AS referenced_schema,
+        ccu.table_name AS referenced_table,
+        ccu.column_name AS referenced_column
+      FROM information_schema.key_column_usage kcu
+      JOIN information_schema.constraint_column_usage ccu
+        ON kcu.constraint_name = ccu.constraint_name
+      WHERE kcu.table_schema = $1 AND kcu.table_name = $2;
+    `;
+    const fkResult = await pool.query(fkQuery, [schema, table]);
+
+    // Construct metadata object
+    const metadata = {
+      table_name: table,
+      schema_name: schema,
+      columns: columnsResult.rows,
+      foreign_keys: fkResult.rows,
+    };
+
+    res.json(metadata);
+  } catch (error) {
+    console.error(`Error fetching metadata for table ${schema}.${table}:`, error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+
 // Existing functions (getSchemas, getTables, getColumns, getTableData)
 exports.getSchemas = async (req, res) => {
   try {

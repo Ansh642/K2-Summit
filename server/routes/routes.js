@@ -12,6 +12,7 @@ router.get("/schemas/:schema/tables/:table/data", schemaController.getTableData)
 // New routes for unified schema
 router.post("/create-unified-schema", schemaController.createUnifiedSchema);
 router.get("/unified-schema", schemaController.getUnifiedSchema);
+router.get("/schemas/:schema/tables/:table/metadata", schemaController.getTableMetadata);
 
 router.post('/ask-ai', async(req, res) => {
     try{

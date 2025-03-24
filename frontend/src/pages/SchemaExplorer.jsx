@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import toast from 'react-hot-toast';
+import toast from "react-hot-toast";
+import * as YAML from "yaml"; // Install YAML library: `npm install yaml`
 
 const SchemaExplorer = () => {
   const [schemas, setSchemas] = useState([]);
@@ -11,6 +12,7 @@ const SchemaExplorer = () => {
   const [tableData, setTableData] = useState([]);
   const [selectedSchema, setSelectedSchema] = useState(null);
   const [selectedTable, setSelectedTable] = useState(null);
+  const [exportFormat, setExportFormat] = useState("json"); // Default export format
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -69,6 +71,47 @@ const SchemaExplorer = () => {
       return;
     }
     navigate(`/generate-ai-content?schema=${selectedSchema}&table=${selectedTable}`);
+  };
+
+  const handleExportMetadata = async () => {
+    if (!selectedSchema || !selectedTable) {
+      toast.error("Please select a schema and table first.");
+      return;
+    }
+
+    try {
+      // Fetch metadata for the selected schema and table
+      const response = await axios.get(
+        `http://localhost:5000/api/schemas/${selectedSchema}/tables/${selectedTable}/metadata`
+      );
+      const metadata = response.data;
+
+      // Convert metadata to the selected format
+      let content, mimeType, fileExtension;
+      if (exportFormat === "json") {
+        content = JSON.stringify(metadata, null, 2);
+        mimeType = "application/json";
+        fileExtension = "json";
+      } else if (exportFormat === "yaml") {
+        content = YAML.stringify(metadata);
+        mimeType = "text/yaml";
+        fileExtension = "yaml";
+      }
+
+      // Trigger file download
+      const blob = new Blob([content], { type: mimeType });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${selectedSchema}_${selectedTable}_metadata.${fileExtension}`;
+      link.click();
+      URL.revokeObjectURL(url);
+
+      toast.success(`Metadata exported successfully as ${exportFormat.toUpperCase()}!`);
+    } catch (error) {
+      console.error("Error exporting metadata:", error);
+      toast.error("Failed to export metadata.");
+    }
   };
 
   return (
@@ -192,7 +235,7 @@ const SchemaExplorer = () => {
       {/* Buttons Section */}
       <div className="flex justify-center space-x-4">
         <motion.button
-          onClick={() => navigate('/unified-schema')}
+          onClick={() => navigate("/unified-schema")}
           className="px-6 py-2 bg-gradient-to-r from-red-500 to-pink-500 text-white font-semibold rounded-lg shadow-lg hover:from-red-600 hover:to-pink-600 transition-transform transform hover:scale-105"
           whileHover={{ scale: 1.05 }}
         >
@@ -206,6 +249,24 @@ const SchemaExplorer = () => {
         >
           Generate AI Content
         </motion.button>
+
+        <motion.button
+          onClick={handleExportMetadata}
+          className="px-6 py-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-semibold rounded-lg shadow-lg hover:from-purple-600 hover:to-indigo-600 transition-transform transform hover:scale-105"
+          whileHover={{ scale: 1.05 }}
+        >
+          Export Metadata
+        </motion.button>
+
+        {/* Format Selection Dropdown */}
+        <select
+          value={exportFormat}
+          onChange={(e) => setExportFormat(e.target.value)}
+          className="px-3 py-2 cursor-pointer bg-gray-800 text-white rounded-lg shadow-lg focus:outline-none"
+        >
+          <option value="json">JSON</option>
+          <option value="yaml">YAML</option>
+        </select>
       </div>
     </div>
   );

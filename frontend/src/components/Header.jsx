@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import toast from 'react-hot-toast';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem("email");
     localStorage.removeItem("password");
+    toast.success("Logout Successfull");
     navigate("/"); 
   };
 
